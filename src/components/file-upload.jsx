@@ -4,24 +4,19 @@ export const FileUpload = () => {
     const [file, setFile] = useState(null);
     const [uploading, setUploading] = useState(false);
     const [extractedText, setExtractedText] = useState("");
-    const [error, setError] = useState("");
 
     const handleFile = (e) => {
         setFile(e.target.files[0]);
     };
 
     const uploadFile = async () => {
-        if (!file) {
-            setError("Please select a file first.");
-            return;
-        }
+        if (!file) return;
 
         const formData = new FormData();
-        formData.append("image", file); // 🔹 Ensure it matches 'upload.single("image")'
+        formData.append("image", file);
 
         try {
             setUploading(true);
-            setError("");
             setExtractedText("Extracting text...");
 
             const response = await fetch("https://lean-in25.vercel.app/extract-text", {
@@ -29,16 +24,15 @@ export const FileUpload = () => {
                 body: formData,
             });
 
-            const data = await response.json();
-
             if (!response.ok) {
-                throw new Error(data.error || "Failed to extract text.");
+                setExtractedText("Failed to extract text.");
+                return;
             }
 
-            setExtractedText(data.extractedText);
-        } catch (error) {
-            console.error("Error:", error);
-            setError(error.message);
+            const data = await response.json();
+            setExtractedText(data.extractedText || "No text found.");
+        } catch {
+            setExtractedText("Error occurred.");
         } finally {
             setUploading(false);
         }
@@ -53,7 +47,6 @@ export const FileUpload = () => {
                 {uploading ? "Uploading..." : "Upload & Extract Text"}
             </button>
 
-            {error && <p style={{ color: "red" }}>{error}</p>}
             {extractedText && (
                 <div>
                     <h3>Extracted Text:</h3>

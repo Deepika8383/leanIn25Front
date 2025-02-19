@@ -1,10 +1,14 @@
-import { FileUpload } from "./components/file-upload";
+import { Background } from "./components/background";
+import { Foreground } from "./components/foreground";
+import { Navbar } from "./components/navbar";
 
 const App=()=>{
   return(
-    <div>
-      <FileUpload/>
-    </div>
+    <Background>
+      <Foreground>
+        <Navbar/>
+      </Foreground>
+    </Background>
   );
 }
 export default App;
