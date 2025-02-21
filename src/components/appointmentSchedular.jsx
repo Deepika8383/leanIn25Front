@@ -20,6 +20,7 @@ const AppointmentScheduler = ({ isOpen, setIsOpen, addAppointment }) => {
 
         // Add the new medicine to the list
         addAppointment(newAppointment);
+        
 
         // Reset form fields
         setDoctorName("");
@@ -28,6 +29,10 @@ const AppointmentScheduler = ({ isOpen, setIsOpen, addAppointment }) => {
         setLocation("");
 
         // Close the modal
+        setIsOpen(false);
+    };
+    const handleCancel = () => {
+        // Simply close the modal without adding an appointment
         setIsOpen(false);
     };
 
@@ -43,7 +48,7 @@ const AppointmentScheduler = ({ isOpen, setIsOpen, addAppointment }) => {
                             <input
                                 type="text"
                                 className="w-full border p-2 rounded-md mb-3"
-                                placeholder="Enter medicine name"
+                                placeholder="Enter doctor's name name"
                                 value={doctorName}
                                 onChange={(e) => setDoctorName(e.target.value)}
                             />
@@ -52,7 +57,7 @@ const AppointmentScheduler = ({ isOpen, setIsOpen, addAppointment }) => {
                             <label className="block font-medium mb-1">date:</label>
                             <input 
                                 type="date"
-                                value={doctorName}
+                                value={date}
                                 onChange={(e) => setDate(e.target.value)}
                             />
 
@@ -77,9 +82,18 @@ const AppointmentScheduler = ({ isOpen, setIsOpen, addAppointment }) => {
 
 
                             {/* Submit Button */}
+
+                            <div className="flex flex-row gap-5">
                             <button type="submit" className="w-full bg-secondary3 text-white font-bold shadow-lg py-4 rounded-md hover:bg-green1bg hover:text-secondary3">
-                                Add Medicine
+                                Add Appointment
                             </button>
+                            <button type="button" className="w-full bg-secondary3 text-white font-bold shadow-lg py-4 rounded-md hover:bg-green1bg hover:text-secondary3"
+                            onClick={handleCancel}>
+                                cancel
+                            </button>
+                            </div>
+
+                           
                         </form>
                     </div>
                 </div>

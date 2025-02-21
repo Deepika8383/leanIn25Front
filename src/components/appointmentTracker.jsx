@@ -1,21 +1,20 @@
 import { useState } from "react";
-import MedicineScheduler from "./medicineSchedular";
-import { Medicine } from "../models/medicine";
+import AppointmentScheduler from "./appointmentSchedular";
+import { Appointment } from "../models/appointment";
 
 const AppointmentTracker = () => {
-    const [isTrackerOpen, setIsTrackerOpen] = useState(false);
-    const [medicines, setMedicines] = useState([]);
+    const [isTracker1Open, setIsTracker1Open] = useState(false);
+    const [appointments, setAppointments] = useState([]);
 
     // Function to add medicine
-    const addMedicine = (medicineData) => {
-        const newMedicine = new Medicine(
-            medicineData.medicineName,
-            medicineData.medicineForm,
-            medicineData.frequency,
-            medicineData.timesPerDay,
-            medicineData.times
+    const addAppointment = (appointmentData) => {
+        const newAppointment = new Appointment(
+            appointmentData.doctorName,
+            appointmentData.date,
+            appointmentData.time,
+            appointmentData.location
         );
-        setMedicines([...medicines, newMedicine]);
+        setAppointments([...appointments, newAppointment]);
     };
 
     return (
@@ -23,13 +22,13 @@ const AppointmentTracker = () => {
             <div className="flex gap-16 m-6">
                 <button 
                     className="bg-secondary3 px-4 py-3 shadow-md rounded-lg text-white font-bold text-lg"
-                    onClick={() => setIsTrackerOpen(true)} 
+                    onClick={() => setIsTracker1Open(true)} 
                 >
                     Add Appointment
                 </button>
                 <button 
                     className="bg-secondary3 px-4 py-3 shadow-md rounded-lg text-white font-bold text-lg"
-                    onClick={() => setIsTrackerOpen(true)} 
+                    onClick={() => setIsTracker1Open(false)} 
                 >
                     Remove Appointment
                 </button>
@@ -37,14 +36,13 @@ const AppointmentTracker = () => {
 
             {/* Display Scheduled Medicines */}
             <h2 className="text-xl font-bold mb-2 text-secondary2">Scheduled Appointments</h2>
-            {medicines.length > 0 ? (
+            {appointments.length > 0 ? (
                 <ul className="list-disc pl-5">
-                    {medicines.map((medicine, index) => (
+                    {appointments.map((appointment, index) => (
                         <li key={index} className="mb-2">
-                            <span className="font-semibold">{medicine.medicineName}</span> - 
-                            {medicine.medicineForm}, {medicine.frequency}, {medicine.timesPerDay} times a day
+                            <span className="font-semibold">{appointment.doctorName}</span> - 
+                            {appointment.date}, {appointment.time}, {appointment.location}
                             <br />
-                            <span className="text-sm text-gray-600">Timings: {medicine.times.join(", ")}</span>
                         </li>
                     ))}
                 </ul>
@@ -53,7 +51,7 @@ const AppointmentTracker = () => {
             )}
 
             {/* MedicineScheduler Modal */}
-            <MedicineScheduler isOpen={isTrackerOpen} setIsOpen={setIsTrackerOpen} addMedicine={addMedicine} />
+            <AppointmentScheduler isOpen={isTracker1Open} setIsOpen={setIsTracker1Open} addAppointment={addAppointment} />
         </div>
     );
 };
