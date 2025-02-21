@@ -1,73 +1,40 @@
 import { useState } from "react";
 import { CustomCalendar } from "../components/calender";
-import MedicineScheduler from "../components/medicineTracker"; 
-import { Medicine } from "../models/medicine"; 
+import MedicineTracker from "../components/medicineTracker";
+import AppointmentTracker from "../components/appointmentTracker"; // Import Appointment Tracker
+import { Link } from "react-router-dom";
 
 export const UserPage = () => {
-    const [isTrackerOpen, setIsTrackerOpen] = useState(false);
-    const [medicines, setMedicines] = useState([]); // Store added medicines
-
-    // Function to add medicine to the array
-    console.log("Medicines Array:", medicines); // Debugging the medicines array
-
-    // Function to add medicine using the Medicine model
-    const addMedicine = (medicineData) => {
-        const newMedicine = new Medicine(
-            medicineData.medicineName,
-            medicineData.medicineForm,
-            medicineData.frequency,
-            medicineData.timesPerDay,
-            medicineData.times
-        );
-        setMedicines([...medicines, newMedicine]);
-    };
-
+    const [activeSection, setActiveSection] = useState("medicine"); // Track active section
 
     return (
         <div className="h-screen w-full flex overflow-auto bg-gray-100">
             {/* Profile Section */}
             <div className="w-[15%] h-full bg-secondary3 m-1.5 rounded-lg">
                 <h2 className="text-xl font-bold text-white p-4">Profile</h2>
+                <div className="flex flex-col gap-y-6 py-10 px-3 text-left text-white font-semibold">
+                    <button onClick={() => setActiveSection("appointments")} className="text-left hover:underline">
+                        Track Appointments
+                    </button>
+                    <button onClick={() => setActiveSection("medicine")} className="text-left hover:underline">
+                        Medicine Tracker
+                    </button>
+                    <Link>Auto Order</Link>
+                    <Link>Search a Medicine</Link>
+                    <Link>Customized AI-based Suggestions</Link>
+                </div>
             </div>
 
+            {/* Main Content */}
             <div className="w-[85%] h-screen">
                 {/* Calendar Section */}
                 <div className="m-1.5 ml-0 rounded-lg">
                     <CustomCalendar />
                 </div>
 
-                {/* Buttons Section */}
-                <div className="flex gap-16 m-6">
-                    <button 
-                        className="bg-secondary3 px-4 py-3 shadow-md rounded-lg text-white font-bold text-lg"
-                        onClick={() => setIsTrackerOpen(true)} // Open MedicineScheduler
-                    >
-                        Add Medicine
-                    </button>
-                </div>
-
-                {/* Display Added Medicines */}
-                <div className="m-6 p-4 bg-white shadow-md rounded-lg">
-                    <h2 className="text-xl font-bold mb-2">Scheduled Medicines</h2>
-                    {medicines.length > 0 ? (
-                        <ul className="list-disc pl-5">
-                            {medicines.map((medicine, index) => (
-                                <li key={index} className="mb-2">
-                                    <span className="font-semibold">{medicine.medicineName}</span> - 
-                                    {medicine.medicineForm}, {medicine.frequency}, {medicine.timesPerDay} times a day
-                                    <br />
-                                    <span className="text-sm text-gray-600">Timings: {medicine.times.join(", ")}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p className="text-gray-500">No medicines scheduled yet.</p>
-                    )}
-                </div>
+                {/* Render the selected section */}
+                {activeSection === "medicine" ? <MedicineTracker /> : <AppointmentTracker />}
             </div>
-
-            {/* MedicineScheduler Modal */}
-            <MedicineScheduler isOpen={isTrackerOpen} setIsOpen={setIsTrackerOpen} addMedicine={addMedicine} />
         </div>
     );
 };

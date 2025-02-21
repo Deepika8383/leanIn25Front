@@ -2,7 +2,7 @@ import { useState } from "react";
 import MedicineScheduler from "./medicineSchedular";
 import { Medicine } from "../models/medicine";
 
-const MedicineTracker = () => {
+const AppointmentTracker = () => {
     const [isTrackerOpen, setIsTrackerOpen] = useState(false);
     const [medicines, setMedicines] = useState([]);
 
@@ -25,18 +25,18 @@ const MedicineTracker = () => {
                     className="bg-secondary3 px-4 py-3 shadow-md rounded-lg text-white font-bold text-lg"
                     onClick={() => setIsTrackerOpen(true)} 
                 >
-                    Add Medicine
+                    Add Appointment
                 </button>
                 <button 
                     className="bg-secondary3 px-4 py-3 shadow-md rounded-lg text-white font-bold text-lg"
                     onClick={() => setIsTrackerOpen(true)} 
                 >
-                    Add Dosage
+                    Remove Appointment
                 </button>
             </div>
 
             {/* Display Scheduled Medicines */}
-            <h2 className="text-xl font-bold mb-2 text-secondary2">Scheduled Medicines</h2>
+            <h2 className="text-xl font-bold mb-2 text-secondary2">Scheduled Appointments</h2>
             {medicines.length > 0 ? (
                 <ul className="list-disc pl-5">
                     {medicines.map((medicine, index) => (
@@ -49,7 +49,7 @@ const MedicineTracker = () => {
                     ))}
                 </ul>
             ) : (
-                <p className="text-gray-500">No medicines scheduled yet.</p>
+                <p className="text-gray-500">No appointments scheduled yet.</p>
             )}
 
             {/* MedicineScheduler Modal */}
@@ -58,4 +58,4 @@ const MedicineTracker = () => {
     );
 };
 
-export default MedicineTracker;
+export default AppointmentTracker;

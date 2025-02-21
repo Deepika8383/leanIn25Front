@@ -22,7 +22,7 @@ export const Home = () => {
             { title: "Set a Reminder", img: "🧪",link: "/user" },
             { title: "Search a Medicine", img: "🧬", link: "/search-medicine" },
             { title: "Upload Prescription", img: "🧑‍🔬" },
-            { title: "AI - Health Assistant", img: "🤖" },
+            { title: "AI - Health Assistant", img: "🤖", link: "/chatbot"},
           ].map((item, index) => (
             <Link
               key={index}

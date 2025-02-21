@@ -3,6 +3,7 @@ import { Background } from "./components/background";
 import { Home } from "./pages/Home";
 import SearchMedicine from "./pages/searchMedicine";
 import { UserPage } from "./pages/userPage";
+import PhoneAuth from "./components/phoneAuth";
 
 const App = () => {
   return (
@@ -10,7 +11,7 @@ const App = () => {
       <Background>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/search-medicine" element={<SearchMedicine />} />
+          <Route path="/search-medicine" element={<SearchMedicine/>} />
           <Route path="/user" element={<UserPage />} />
         </Routes>
       </Background>
