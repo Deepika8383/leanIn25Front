@@ -1,15 +1,27 @@
 import { useState } from "react";
 import { CustomCalendar } from "../components/calender";
 import MedicineScheduler from "../components/medicineTracker"; 
+import { Medicine } from "../models/medicine"; 
 
 export const UserPage = () => {
     const [isTrackerOpen, setIsTrackerOpen] = useState(false);
     const [medicines, setMedicines] = useState([]); // Store added medicines
 
     // Function to add medicine to the array
-    const addMedicine = (newMedicine) => {
+    console.log("Medicines Array:", medicines); // Debugging the medicines array
+
+    // Function to add medicine using the Medicine model
+    const addMedicine = (medicineData) => {
+        const newMedicine = new Medicine(
+            medicineData.medicineName,
+            medicineData.medicineForm,
+            medicineData.frequency,
+            medicineData.timesPerDay,
+            medicineData.times
+        );
         setMedicines([...medicines, newMedicine]);
     };
+
 
     return (
         <div className="h-screen w-full flex overflow-auto bg-gray-100">

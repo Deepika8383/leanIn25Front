@@ -19,7 +19,7 @@ export const Home = () => {
         <h3 className="text-4xl text-center mb-6 text-secondary2 font-bold">Our Features</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {[
-            { title: "Set a Reminder", img: "🧪" },
+            { title: "Set a Reminder", img: "🧪",link: "/user" },
             { title: "Search a Medicine", img: "🧬", link: "/search-medicine" },
             { title: "Upload Prescription", img: "🧑‍🔬" },
             { title: "AI - Health Assistant", img: "🤖" },
